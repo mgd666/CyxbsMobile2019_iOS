@@ -120,6 +120,7 @@ MJExtensionCodingImplementation
     NSLog(@"--%@--", [self aesEncrypt:passWord]);
 
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.requestSerializer.timeoutInterval = 8.f;
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializer];
     [responseSerializer setRemovesKeysWithNullValues:YES];
     [responseSerializer.acceptableContentTypes setByAddingObjectsFromSet:[NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", @"text/plain",@"application/atom+xml",@"application/xml",@"text/xml",nil]];
@@ -168,7 +169,7 @@ MJExtensionCodingImplementation
             [[NSNotificationCenter defaultCenter] postNotificationName:@"QueryVolunteerInfoFailed" object:nil];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"loginFailed" object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"QueryVolunteerInfoFailed" object:nil];
         NSLog(@"志愿信息绑定失败");
     }];
 }
